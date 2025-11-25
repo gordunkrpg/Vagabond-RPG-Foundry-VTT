@@ -23,6 +23,7 @@ export class VagabondItem extends Item {
     this._prepareWeaponData(itemData);
     this._prepareArmorData(itemData);
     this._prepareSpellData(itemData);
+    this._prepareAlchemicalData(itemData);
   }
 
   /**
@@ -103,6 +104,27 @@ export class VagabondItem extends Item {
 
     // Determine if spell has damage
     systemData.hasDamage = systemData.damageBase && systemData.damageBase !== "";
+  }
+
+  /**
+   * Prepare Alchemical type specific data
+   */
+  _prepareAlchemicalData(itemData) {
+    if (itemData.type !== 'alchemical') return;
+    
+    const systemData = itemData.system;
+
+    // Alchemical items always occupy 1 slot
+    systemData.slots = 1;
+
+    // Set default throw property based on classification
+    if (systemData.classification === 'explosive' || 
+        systemData.classification === 'acid') {
+      systemData.canThrow = true;
+    }
+
+    // Determine if this can be used as a weapon
+    systemData.isWeapon = systemData.canThrow && systemData.damage && systemData.damage !== "";
   }
 
   /**

@@ -6,6 +6,10 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
 
 export class VagabondItemSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ItemSheetV2) {
 
+    constructor(options = {}) {
+        super(options);
+    }
+
     static DEFAULT_OPTIONS = {
         classes: ["vagabond", "sheet", "item"],
         position: {
@@ -27,11 +31,25 @@ export class VagabondItemSheet extends HandlebarsApplicationMixin(foundry.applic
         }
     };
 
-    static PARTS = {
-        form: {
-            template: "systems/vagabond/templates/item/item-sheet.hbs"
-        }
-    };
+    static get PARTS() {
+        // This is called once when the class is loaded, not per instance
+        // So we can't use this.document here
+        return {
+            form: {
+                template: "systems/vagabond/templates/item/item-sheet.hbs"
+            }
+        };
+    }
+    
+    // Instance getter that overrides the static one (not used with manual _renderHTML)
+    get parts() {
+        const templatePath = this.template;
+        return {
+            form: {
+                template: templatePath
+            }
+        };
+    }
     
     get template() {
         const type = this.document.type;
@@ -41,10 +59,12 @@ export class VagabondItemSheet extends HandlebarsApplicationMixin(foundry.applic
                 return "systems/vagabond/templates/item/weapon-sheet.hbs";
             case "armor":
                 return "systems/vagabond/templates/item/armor-sheet.hbs";
-            case "spell":
-                return "systems/vagabond/templates/item/spell-sheet.hbs";
             case "gear":
                 return "systems/vagabond/templates/item/gear-sheet.hbs";
+            case "alchemical":
+                return "systems/vagabond/templates/item/alchemical-sheet.hbs";
+            case "spell":
+                return "systems/vagabond/templates/item/spell-sheet.hbs";
             case "perk":
                 return "systems/vagabond/templates/item/perk-sheet.hbs";
             case "class":
@@ -55,8 +75,29 @@ export class VagabondItemSheet extends HandlebarsApplicationMixin(foundry.applic
                 return "systems/vagabond/templates/item/item-sheet.hbs";
         }
     }
-
+    
+    async _renderHTML(context, options) {
+        // Get the correct template path based on item type
+        const templatePath = this.template;
+        
+        // Manually render the template directly (bypass PARTS system)
+        // Use v13 namespaced renderTemplate
+        const html = await foundry.applications.handlebars.renderTemplate(templatePath, context);
+        
+        // Convert HTML string to DOM element
+        const template = document.createElement("template");
+        template.innerHTML = html;
+        const form = template.content.firstElementChild;
+        
+        return { form };
+    }
+    
+    async _renderFrame(options) {
+        return super._renderFrame(options);
+    }
+    
     async _prepareContext(options) {
+        console.log("VagabondItemSheet _prepareContext called for type:", this.document.type);
         const context = await super._prepareContext(options);
         
         context.item = this.document;
@@ -120,6 +161,7 @@ export class VagabondItemSheet extends HandlebarsApplicationMixin(foundry.applic
                 });
             });
             
+            // Handle weapon properties checkboxes
             form.querySelectorAll('input[type="checkbox"][name="system.properties"]').forEach(checkbox => {
                 checkbox.addEventListener('change', async (e) => {
                     clearTimeout(submitTimeout);
@@ -129,6 +171,21 @@ export class VagabondItemSheet extends HandlebarsApplicationMixin(foundry.applic
                         
                         await this.document.update({
                             'system.properties': properties
+                        });
+                    }, 300);
+                });
+            });
+            
+            // Handle alchemical effectProperties checkboxes
+            form.querySelectorAll('input[type="checkbox"][name="system.effectProperties"]').forEach(checkbox => {
+                checkbox.addEventListener('change', async (e) => {
+                    clearTimeout(submitTimeout);
+                    submitTimeout = setTimeout(async () => {
+                        const checkedBoxes = form.querySelectorAll('input[type="checkbox"][name="system.effectProperties"]:checked');
+                        const effectProperties = Array.from(checkedBoxes).map(cb => cb.value);
+                        
+                        await this.document.update({
+                            'system.effectProperties': effectProperties
                         });
                     }, 300);
                 });

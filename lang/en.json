@@ -8,6 +8,7 @@
       "weapon": "Weapon",
       "armor": "Armor",
       "gear": "Gear",
+      "alchemical": "Alchemical",
       "spell": "Spell",
       "perk": "Perk",
       "class": "Class",
@@ -132,6 +133,44 @@
       "Light": "Light",
       "Medium": "Medium",
       "Heavy": "Heavy"
+    },
+    
+    "Gear": {
+      "Type": "Gear Type",
+      "Adventuring": "Adventuring Gear",
+      "Tools": "Tools",
+      "Container": "Container",
+      "Food": "Food & Drink",
+      "Light": "Light Source",
+      "Miscellaneous": "Miscellaneous",
+      "Consumable": "Consumable",
+      "Capacity": "Capacity"
+    },
+    
+    "Alchemical": {
+      "Classification": "Classification",
+      "Acid": "Acid",
+      "AcidDesc": "Corrosive substances",
+      "Concoction": "Concoction",
+      "ConcoctionDesc": "General substances",
+      "Explosive": "Explosive",
+      "ExplosiveDesc": "Bombs and combustibles",
+      "Oils": "Oils",
+      "OilsDesc": "Coats a Weapon, Ammo, a 5-foot square, or a Small to Large Being",
+      "Potions": "Potions",
+      "PotionsDesc": "Concoctions that cause magical effects",
+      "Torch": "Torch",
+      "TorchDesc": "Provides Near Light for 1 hour",
+      "CanThrow": "Can Throw",
+      "ApplicationType": "Application Type",
+      "Duration": "Duration",
+      "TargetArea": "Target Area/Size",
+      "Consumed": "Used/Consumed",
+      "EffectProperties": "Effect Properties",
+      "Area": "Area Effect",
+      "Coating": "Coating",
+      "ConsumedEffect": "Must be Consumed",
+      "LightSource": "Light Source"
     },
     
     "NPC": {

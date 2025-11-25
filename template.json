@@ -158,7 +158,7 @@
     }
   },
   "Item": {
-    "types": ["weapon", "armor", "gear", "spell", "perk", "class", "ancestry"],
+    "types": ["weapon", "armor", "gear", "alchemical", "spell", "perk", "class", "ancestry"],
     "templates": {
       "base": {
         "description": "",
@@ -194,7 +194,21 @@
     },
     "gear": {
       "templates": ["base", "physical"],
-      "type": "adventuring"
+      "gearType": "adventuring",
+      "consumable": false,
+      "container": false,
+      "capacity": 0
+    },
+    "alchemical": {
+      "templates": ["base", "physical"],
+      "classification": "concoction",
+      "canThrow": true,
+      "damage": "",
+      "effectProperties": [],
+      "applicationType": "thrown",
+      "duration": "instant",
+      "targetArea": "",
+      "consumed": false
     },
     "spell": {
       "templates": ["base"],

@@ -50,6 +50,7 @@ Hooks.once("init", function() {
 
   console.log("Vagabond | Registering VagabondItemSheet");
   DocumentSheetConfig.registerSheet(Item, "vagabond", VagabondItemSheet, {
+    types: ["weapon", "armor", "gear", "alchemical", "spell", "perk", "class", "ancestry"],
     makeDefault: true,
     label: "VAGABOND.SheetLabels.Item"
   });
@@ -133,6 +134,10 @@ async function preloadHandlebarsTemplates() {
 
     // Item Sheet templates
     "systems/vagabond/templates/item/item-sheet.hbs",
+    "systems/vagabond/templates/item/weapon-sheet.hbs",
+    "systems/vagabond/templates/item/armor-sheet.hbs",
+    "systems/vagabond/templates/item/gear-sheet.hbs",
+    "systems/vagabond/templates/item/alchemical-sheet.hbs",
     
     // Chat templates
     "systems/vagabond/templates/chat/check-result.hbs",
@@ -164,6 +169,10 @@ function registerHandlebarsHelpers() {
 
   Handlebars.registerHelper("multiply", function(a, b) {
     return a * b;
+  });
+
+  Handlebars.registerHelper("divide", function(a, b) {
+    return a / b;
   });
 
   // Comparison helpers

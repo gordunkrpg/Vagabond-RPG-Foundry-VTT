@@ -1,0 +1,173 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile" src="{{item.img}}" data-action="editImage" title="Click to change image" alt="{{item.name}}"/>
+    
+    <div class="header-details flexcol">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{item.name}}" placeholder="Alchemical Item Name"/>
+      </h1>
+      
+      <div class="item-subtitle">
+        <i class="fas fa-flask"></i> Alchemical Item
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    
+    <div class="alchemical-notice">
+      <i class="fas fa-info-circle"></i>
+      <strong>Single-Use:</strong> Alchemical items occupy 1 Slot and are single-use unless otherwise stated.
+      If used for an attack, they do so as a Crude Weapon with the Thrown Property.
+    </div>
+    
+    <h2>Alchemical Properties</h2>
+    
+    <div class="form-group">
+      <label>Classification</label>
+      <select name="system.classification">
+        {{#select system.classification}}
+        <option value="acid">Acid - Corrosive substances</option>
+        <option value="concoction">Concoction - General substances</option>
+        <option value="explosive">Explosive - Bombs and combustibles</option>
+        <option value="oils">Oils - Coats a Weapon, Ammo, a 5-foot square, or a Small to Large Being</option>
+        <option value="potions">Potions - Concoctions that cause magical effects</option>
+        <option value="torch">Torch - Provides Near Light for 1 hour</option>
+        {{/select}}
+      </select>
+      <p class="hint">The type of alchemical substance</p>
+    </div>
+
+    <h3>Attack Properties (if used as weapon)</h3>
+    
+    <div class="form-group">
+      <label>
+        <input type="checkbox" name="system.canThrow" {{checked system.canThrow}}/>
+        Thrown Property (acts as Crude Weapon)
+      </label>
+      <p class="hint">Can be thrown at Near, or Far with Hinder</p>
+    </div>
+    
+    <div class="form-group">
+      <label>Damage (if applicable)</label>
+      <input type="text" name="system.damage" value="{{system.damage}}" placeholder="e.g., 1d6"/>
+      <p class="hint">Damage dealt if used as an attack</p>
+    </div>
+
+    <h3>Effect Properties</h3>
+    
+    <div class="properties-grid">
+      <label class="property-checkbox">
+        <input type="checkbox" name="system.effectProperties" value="area" {{checked (includes system.effectProperties "area")}}/>
+        <span class="property-name">Area Effect</span>
+        <span class="property-desc">Affects an area (specify in description)</span>
+      </label>
+      
+      <label class="property-checkbox">
+        <input type="checkbox" name="system.effectProperties" value="coating" {{checked (includes system.effectProperties "coating")}}/>
+        <span class="property-name">Coating</span>
+        <span class="property-desc">Can coat weapon/armor/being</span>
+      </label>
+      
+      <label class="property-checkbox">
+        <input type="checkbox" name="system.effectProperties" value="consumed" {{checked (includes system.effectProperties "consumed")}}/>
+        <span class="property-name">Consumed</span>
+        <span class="property-desc">Must be ingested or applied</span>
+      </label>
+      
+      <label class="property-checkbox">
+        <input type="checkbox" name="system.effectProperties" value="light" {{checked (includes system.effectProperties "light")}}/>
+        <span class="property-name">Light Source</span>
+        <span class="property-desc">Provides illumination</span>
+      </label>
+    </div>
+
+    <h3>Application Details</h3>
+    
+    <div class="form-group">
+      <label>Application Type</label>
+      <select name="system.applicationType">
+        {{#select system.applicationType}}
+        <option value="thrown">Thrown (Crude Weapon)</option>
+        <option value="weapon">Coat Weapon (one Shift)</option>
+        <option value="ammo">Coat Ammo (until another oil is applied)</option>
+        <option value="area">Coat 5-foot square (one Shift)</option>
+        <option value="being">Apply to Being (one Shift)</option>
+        <option value="armor">Coat Armor (until another oil is applied)</option>
+        <option value="consumed">Ingested/Applied directly</option>
+        {{/select}}
+      </select>
+      <p class="hint">How this alchemical item is used</p>
+    </div>
+    
+    <div class="form-group">
+      <label>Duration</label>
+      <input type="text" name="system.duration" value="{{system.duration}}" placeholder="e.g., 1 Shift, 1 hour, instant"/>
+      <p class="hint">How long the effect lasts</p>
+    </div>
+    
+    <div class="form-group">
+      <label>Target Area/Size</label>
+      <input type="text" name="system.targetArea" value="{{system.targetArea}}" placeholder="e.g., 5-foot square, Small to Large Being"/>
+      <p class="hint">What can be affected by this item</p>
+    </div>
+
+    <h3>Physical Properties</h3>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label>Inventory Slots</label>
+        <input type="number" name="system.slots" value="{{system.slots}}" data-dtype="Number" min="1" max="1"/>
+        <p class="hint">Alchemical items occupy 1 slot</p>
+      </div>
+      
+      <div class="form-group">
+        <label>Quantity</label>
+        <input type="number" name="system.quantity" value="{{system.quantity}}" data-dtype="Number" min="1"/>
+        <p class="hint">Number of vials/containers</p>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>
+        <input type="checkbox" name="system.consumed" {{checked system.consumed}}/>
+        Used/Consumed (mark when empty)
+      </label>
+    </div>
+
+    <h3>Value</h3>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label><i class="fas fa-coins"></i> Gold</label>
+        <input type="number" name="system.price.gold" value="{{system.price.gold}}" data-dtype="Number" min="0"/>
+      </div>
+      
+      <div class="form-group">
+        <label><i class="fas fa-coins"></i> Silver</label>
+        <input type="number" name="system.price.silver" value="{{system.price.silver}}" data-dtype="Number" min="0"/>
+      </div>
+      
+      <div class="form-group">
+        <label><i class="fas fa-coins"></i> Copper</label>
+        <input type="number" name="system.price.copper" value="{{system.price.copper}}" data-dtype="Number" min="0"/>
+      </div>
+    </div>
+
+    <h3>Effect Description</h3>
+    <div class="editor-container">
+      <div class="editor-content" data-edit="system.description">
+        {{{enrichedDescription}}}
+      </div>
+      {{#if editable}}
+      <button type="button" class="editor-edit" data-action="toggleEditor" data-target="system.description">
+        <i class="fas fa-edit"></i> Edit
+      </button>
+      {{/if}}
+    </div>
+
+  </section>
+</form>

@@ -953,6 +953,110 @@
   /* Utility Classes      */
   /* ==================== */
   
+  /* Alchemical Item Styling */
+  .vagabond .alchemical-notice {
+    background: rgba(232, 197, 71, 0.1);
+    border-left: 4px solid var(--color-accent);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .vagabond .alchemical-notice i {
+    color: var(--color-accent);
+    font-size: 18px;
+    margin-top: 2px;
+  }
+  
+  .vagabond .properties-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .vagabond .property-checkbox {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm);
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .vagabond .property-checkbox:hover {
+    background: white;
+    border-color: var(--color-accent);
+  }
+  
+  .vagabond .property-checkbox input[type="checkbox"] {
+    margin-right: var(--spacing-sm);
+  }
+  
+  .vagabond .property-name {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  
+  .vagabond .property-desc {
+    font-size: 12px;
+    color: var(--color-text-light);
+    margin-left: 26px;
+  }
+  
+  .vagabond .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .vagabond .currency-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .vagabond .inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .vagabond .armor-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .vagabond .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .vagabond .form-group label {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--color-text);
+  }
+  
+  .vagabond .form-group .hint {
+    font-size: 11px;
+    color: var(--color-text-light);
+    font-style: italic;
+    margin: 0;
+  }
+  
   .vagabond .flexrow {
     display: flex;
     flex-direction: row;
